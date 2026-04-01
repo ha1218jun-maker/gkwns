@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>연애 스타일 테스트</title>
+</head>
+<body style="text-align:center; background:#ffeef2; padding:50px;">
+
+<h1>💖 연애 스타일 테스트 💖</h1>
+
+<div id="question"></div>
+<div id="answers"></div>
+
+<script>
+const questions = [
+  { q: "데이트에서 가장 중요한 것은?", a: ["재미","안정감","설렘","편안함"] },
+  { q: "연락 스타일은?", a: ["자주 한다","필요할 때만","감정 따라","규칙적"] },
+  { q: "갈등이 생기면?", a: ["바로 해결","시간을 둠","감정 표현","논리적 대화"] },
+  { q: "이상적인 데이트는?", a: ["액티비티","집에서 휴식","로맨틱","계획적"] },
+  { q: "연애에서 나는?", a: ["리더형","배려형","감성형","분석형"] }
+];
+
+let step = 0;
+let answers = [];
+
+function showQuestion() {
+  document.getElementById("question").innerHTML = "<h2>" + questions[step].q + "</h2>";
+  let html = "";
+  questions[step].a.forEach((v,i)=>{
+    html += `<button onclick="choose(${i})" style="padding:10px 20px; margin:5px;">${v}</button><br>`;
+  });
+  document.getElementById("answers").innerHTML = html;
+}
+
+function choose(i){
+  answers.push(i);
+  step++;
+  if(step < questions.length){
+    showQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult(){
+  let sum = answers.reduce((a,b)=>a+b,0);
+  let types = ["🔥 탐험가","🌿 안정형","💖 로맨티스트","🧠 전략가"];
+  document.body.innerHTML = "<h1>"+types[sum%4]+"</h1><p>테스트 완료!</p>";
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
